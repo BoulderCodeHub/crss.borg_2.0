@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <borgRwConfig>
     <rwExec>C:\Program Files\CADSWES\RiverWare 8.2.2\riverware.exe</rwExec>
-	<!-- <fileDrivenRun inputFile="current_policy_ForFileDrivenRun.txt"/>
+	<!-- <fileDrivenRun inputFile="current_policy_ForFileDrivenRun.txt"/> -->
 		<populationSize>3</populationSize>
 		<maxEvaluations>10</maxEvaluations>
     <!-- numVar equals sum of <column> <numRow> values -->
@@ -14,7 +14,7 @@
             <bounds lower="0.0" upper="1.0"/>
         </variable>
     </variableList>
-    <objectiveList numObj="8"> 
+    <objectiveList numObj="4"> 
     	<objective>
             <file>Objective_Powell_3490</file>
             <epsilon>1</epsilon>
@@ -62,7 +62,7 @@
 
 	
 
-    <constraintList numConstraints="8">
+    <constraintList numConstraints="4">
 		<constraint>
             <file>Objective_Powell_3490</file>
             <comparisonOperator>IsValid</comparisonOperator>
