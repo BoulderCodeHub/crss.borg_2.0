@@ -1,8 +1,8 @@
 # RiverWare_Ruleset 8.2.2 Patch
-# Created 10:47 September 9, 2021
+# Created 19:48 December 21, 2021
 # 
 RULESET
-NAME "CRSS.Baseline.2027IGDCP.v4.4.0.9004 (from MRM run)";
+NAME "CRSS.Baseline.2027IGDCP.v4.4.0.9004 (from MRM run) (from MRM run)";
 AGENDA_ORDER ASCENDING;
 DESCRIPTION "Ruleset that assumes the IG and the DCP are in effect through 2060.";
 PRECISION   2;
@@ -770,7 +770,7 @@ BEGIN
     DESCRIPTION          "As it is not always possible to completely Equalize in the water year due to maximum release constraints and errors in the forecast, this rule will add on additional releases to Powell in next water year to finish equalizing.  There carryover EQ volume will be released in 1 month if possible, up to the maximum release constraint.  If any remains, it will be released in the subsequent month, until no more carryover exists.";
     ACTIVE               TRUE;
     RULE_EXEC_CONSTRAINT NOT "HasRuleFiredSuccessfully"( "ThisRule" );
-  NAMES_COLOR  "#ff00ff";
+  NAMES_COLOR  "#000000";
     NOTES                "";
     BEGIN
 
@@ -902,7 +902,7 @@ BEGIN
 
     RULE                 "Upper Elevation Balancing Tier Jan thru March_BORG";
     DESCRIPTION          "This rule fires in January through March and determines if Powell is in the Upper Elevation Balancing Tier (based on previous EOCY storage). If Powell is in this tier and Mead (again, previous EOCY storage) is below the minimum balancing elevation of 1075, Powell makes balancing releases within the min and max of 700 and 900 kaf. If Mead is above 1075, Powell releases 823 maf set in the rule Meet Powell Min Objective Release, which is lower priority and required to fire before this rule.";
-    ACTIVE               TRUE;
+    ACTIVE               FALSE;
     RULE_EXEC_CONSTRAINT @"t" <= @"24:00:00 March 31, Current Year" AND IsNaN $ "Coordinated Operation.UpperLevelBalancingFlag" [] AND NOT IsNaN "Powell.Storage" [] AND NOT "SpikeMadeThisMonth"(  );
   NAMES_COLOR  "#5500ff";
     NOTES                "";
@@ -990,7 +990,7 @@ BEGIN
 
     RULE                 "Upper Elevation Balancing Tier April thru Sept_BORG";
     DESCRIPTION          "This rule fires in April through September and makes any required adjustments to Powell's release if Powell began the year in the Upper Elevation Balancing Tier. The decision to switch to the EQ Tier or to increase the release for balancing is based on the April EOWY forecasts. Meaning, the decision made in April stays for the rest of the water year.";
-    ACTIVE               TRUE;
+    ACTIVE               FALSE;
     RULE_EXEC_CONSTRAINT ( @"t" <= @"24:00:00 September 30, Current Year" AND @"t" >= @"24:00:00 April 30, Current Year" ) AND IsNaN $ "Coordinated Operation.UpperLevelBalancingFlag" [] AND NOT IsNaN "Powell.Storage" [] AND NOT "SpikeMadeThisMonth"(  );
   NAMES_COLOR  "#5500ff";
     NOTES                "";
@@ -1110,7 +1110,7 @@ BEGIN
 
     RULE                 "UEBT Lake Powell Release Volume";
     DESCRIPTION          "";
-    ACTIVE               TRUE;
+    ACTIVE               FALSE;
     RULE_EXEC_CONSTRAINT @"t" <= @"24:00:00 September 30, Current Year" AND NOT "HasRuleFiredSuccessfully"( "ThisRule" ) AND NOT IsNaN "Powell.Storage" [] AND NOT "SpikeMadeThisMonth"(  ) AND $ "Powell Decision Variables.PowellReleaseTier" [@"24:00:00 December Max DayOfMonth, Current Year"] == 1.00000000 AND IsNaN $ "PowellOperation.SmoothJulyOps" [];
   NAMES_COLOR  "#5500ff";
     NOTES                "";
@@ -1169,7 +1169,7 @@ BEGIN
 
     RULE                 "Bottom Tier Lake Powell Release Volume";
     DESCRIPTION          "";
-    ACTIVE               TRUE;
+    ACTIVE               FALSE;
     RULE_EXEC_CONSTRAINT @"t" <= @"24:00:00 September 30, Current Year" AND NOT "HasRuleFiredSuccessfully"( "ThisRule" ) AND NOT IsNaN "Powell.Storage" [] AND NOT "SpikeMadeThisMonth"(  ) AND $ "Powell Decision Variables.PowellReleaseTier" [@"24:00:00 December Max DayOfMonth, Current Year"] == 13.00000000;
   NAMES_COLOR  "#5500ff";
     NOTES                "";
